@@ -5,11 +5,20 @@
 #define DRAW_SCORE 3
 #define LOSE_SCORE 0
 
+#define ROCK 1
+#define PAPER 2
+#define SCISSORS 3
+
+#define LOSE 1
+#define DRAW 2
+#define WIN 3
+
 void tokenise_line(std::string, char *);
 int get_round_score(int, int);
 int get_int_value(char token);
 void get_part_one_score();
 void get_part_two_score();
+int get_set_move(int, int);
 
 int main(int argc, char **argv)
 {
@@ -42,7 +51,26 @@ void get_part_one_score()
 
 void get_part_two_score()
 {
+    int totalScore = 0;
+    std::string currentLine;
+    std::ifstream MyReadFile("day2input.txt");
+    char tokens[2];
 
+    while(getline(MyReadFile, currentLine))
+    {
+        if(!currentLine.empty())
+        {
+            tokenise_line(currentLine, tokens);
+            std::cout << tokens[0] << " " << tokens[1] << "\n";
+            std::cout << get_set_move(get_int_value(tokens[0]), get_int_value(tokens[1])) << "\n";
+            totalScore += get_round_score(
+                get_int_value(tokens[0]), 
+                get_set_move(get_int_value(tokens[0]), get_int_value(tokens[1]))
+            );
+        }
+    }
+
+    std::cout << "total score: " << totalScore << "\n";
 }
 
 void tokenise_line(std::string currentLine, char *tokens)
@@ -61,19 +89,19 @@ int get_round_score(int token1, int token2)
         case 1:
             if(token2 == 2)
                 return token2 + WIN_SCORE;
-            if(token2 == 3)
+            else if(token2 == 3)
                 return token2 + LOSE_SCORE;
             break;
         case 2:
             if(token2 == 1)
                 return token2 + LOSE_SCORE;
-            if(token2 == 3)
+            else if(token2 == 3)
                 return token2 + WIN_SCORE;
             break;
         case 3:
             if(token2 == 1)
                 return token2 + WIN_SCORE;
-            if(token2 == 2)
+            else if(token2 == 2)
                 return token2 + LOSE_SCORE;
             break;
         default:
@@ -92,6 +120,38 @@ int get_int_value(char token)
     else if(token == 'C' || token == 'Z')
         return 3;
     
+    return -1;
+}
+
+int get_set_move(int enemyMove, int gameOutcome)
+{
+    if(gameOutcome == DRAW)
+        return enemyMove;
+
+    switch(enemyMove)
+    {
+        case ROCK:
+            if(gameOutcome == LOSE)
+                return SCISSORS;
+            else if(gameOutcome == WIN)
+                return PAPER; 
+            break;
+        case PAPER:
+            if(gameOutcome == LOSE)
+                return ROCK;
+            else if(gameOutcome == WIN)
+                return SCISSORS; 
+            break;
+        case SCISSORS:
+            if(gameOutcome == LOSE)
+                return PAPER;
+            else if(gameOutcome == WIN)
+                return ROCK; 
+            break;
+        default:
+            break;
+    }
+
     return -1;
 }
 
