@@ -58,9 +58,10 @@ void get_top_three_calories()
 
     sort(elfCalorieList.begin(), elfCalorieList.end());
 
-    std::cout 
-    << "Top 3 calories: " 
-    << elfCalorieList[elfCalorieList.size() - 1] 
+    std::cout << 
+    "Top 3 calories: " 
+    << 
+    elfCalorieList[elfCalorieList.size() - 1] 
     + elfCalorieList[elfCalorieList.size()-2] 
     + elfCalorieList[elfCalorieList.size()-3] 
     << "\n";
