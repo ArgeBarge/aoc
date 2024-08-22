@@ -29,7 +29,7 @@ int get_pair_overlap(std::string s)
     int diff1 = rangeArr[0] - rangeArr[2];
     int diff2 = rangeArr[1] - rangeArr[3];
 
-    delete rangeArr;
+    delete[] rangeArr;
 
     // checks if there is a complete overlap 
     // this will only happen if the difference between the first number in each pair is negative and
@@ -74,7 +74,7 @@ int* tokenize_ranges(std::pair<std::string, std::string> p)
             tokens.push_back(token);
     }
     
-    int *rangeArr = new int(4);
+    int *rangeArr = new int[4];
 
     // converts string numbers into ints
     for(int i = 0; i < 4; i++)
