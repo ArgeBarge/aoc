@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <ctype.h>
+#include <vector>
+#include <parser.h>
 
 int get_priority_sum();
 int get_alphabet_num(char);
@@ -20,19 +22,21 @@ int get_priority_sum()
 
     int priority_sum = 0;
     int halves_sum = 0;
-
-    std::ifstream MyReadFile("day3input.txt");
     
-    while(getline(MyReadFile, currentLine))
+    std::vector<std::string> lines = parse_lines("day3input.txt");
+
+    for(auto it = lines.begin(); it != lines.end(); it++)
     {
+        currentLine = *it;
         if(!currentLine.empty())
         {
             firstHalf = currentLine.substr(0, currentLine.length() / 2);
             secondHalf = currentLine.substr(currentLine.length() / 2);
-            
+
             priority_sum += get_shared_priority(firstHalf, secondHalf);
         }
     }
+        
     return priority_sum;
 }
 
