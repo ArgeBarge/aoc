@@ -10,7 +10,7 @@ int* tokenize_ranges(std::pair<std::string, std::string>);
 int main(int argc, char **argv)
 {
     int overlap_count = 0;
-    std::vector<std::string> lines = parse_lines("../../input/day4.txt");
+    std::vector<std::string> lines = parse_lines("day4.txt");
 
     // checking whether each pair overlaps 
     for(auto it = lines.begin(); it != lines.end(); it++)
