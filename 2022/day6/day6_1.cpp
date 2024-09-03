@@ -46,8 +46,10 @@ int main(int argc, char **argv)
         std::cout << *(it-4) << *(it-3) << *(it-2) << *(it-1) << "\n";
         
         std::cout << character_count << std::endl;
-        
-        exit(EXIT_SUCCESS);
+
+        Hash::hashDestroy(&h);
+
+        break;
     }
 
 
